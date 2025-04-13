@@ -1,0 +1,773 @@
+[
+    {
+        "id": "306ab7cd96823849",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5026bc7b010476cd",
+        "type": "mqtt in",
+        "z": "306ab7cd96823849",
+        "name": "",
+        "topic": "PigionImage",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "27781ac9b5bb1346",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 360,
+        "wires": [
+            [
+                "693511b2744f7ff3",
+                "8950b4da2590404a"
+            ]
+        ]
+    },
+    {
+        "id": "693511b2744f7ff3",
+        "type": "image",
+        "z": "306ab7cd96823849",
+        "name": "Image",
+        "width": 160,
+        "data": "payload",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 390,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "2b69363952eb7f5b",
+        "type": "mqtt in",
+        "z": "306ab7cd96823849",
+        "name": "",
+        "topic": "PigionResults",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "27781ac9b5bb1346",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 580,
+        "wires": [
+            [
+                "2d18e297e3ae709c",
+                "45ee56b93880f1a4",
+                "1d474c15dacbad58",
+                "849fdee3d4ade5a0",
+                "c55f0cbcfe8ebe9b"
+            ]
+        ]
+    },
+    {
+        "id": "2d18e297e3ae709c",
+        "type": "debug",
+        "z": "306ab7cd96823849",
+        "name": "Debug Pigion",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "45ee56b93880f1a4",
+        "type": "function",
+        "z": "306ab7cd96823849",
+        "name": "Extract Score",
+        "func": "msg.payload = msg.payload['score'];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 480,
+        "wires": [
+            [
+                "579c84b17643bfac"
+            ]
+        ]
+    },
+    {
+        "id": "ed16208a0d87b17b",
+        "type": "ui_text",
+        "z": "306ab7cd96823849",
+        "group": "6f550ebfd688d4ad",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Last Update",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 750,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "1d474c15dacbad58",
+        "type": "function",
+        "z": "306ab7cd96823849",
+        "name": "Extract TS",
+        "func": "msg.payload = msg.payload.ts;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 540,
+        "wires": [
+            [
+                "ed16208a0d87b17b"
+            ]
+        ]
+    },
+    {
+        "id": "849fdee3d4ade5a0",
+        "type": "function",
+        "z": "306ab7cd96823849",
+        "name": "Extract NumBirds",
+        "func": "msg.payload = msg.payload.numBirds;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 620,
+        "wires": [
+            [
+                "612d1fd3742b132b",
+                "eb03536952676ffd"
+            ]
+        ]
+    },
+    {
+        "id": "612d1fd3742b132b",
+        "type": "ui_text",
+        "z": "306ab7cd96823849",
+        "group": "6f550ebfd688d4ad",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Number of Birds",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 800,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "579c84b17643bfac",
+        "type": "ui_gauge",
+        "z": "306ab7cd96823849",
+        "name": "",
+        "group": "6f550ebfd688d4ad",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Score",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "1",
+        "colors": [
+            "#f40101",
+            "#e6e600",
+            "#43cb3a"
+        ],
+        "seg1": "0.8",
+        "seg2": "0.1",
+        "diff": false,
+        "className": "",
+        "x": 750,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "eb03536952676ffd",
+        "type": "ui_chart",
+        "z": "306ab7cd96823849",
+        "name": "Birds Line Chart",
+        "group": "6f550ebfd688d4ad",
+        "order": 3,
+        "width": "0",
+        "height": "0",
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "",
+        "removeOlder": "24",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 800,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a332e5794a3eb08b",
+        "type": "ui_template",
+        "z": "306ab7cd96823849",
+        "group": "cbbe51aeaee46217",
+        "name": "Base64 Image",
+        "order": 5,
+        "width": "6",
+        "height": "6",
+        "format": "<image src=\"{{msg.payload}}\" width=\"480px\" height=\"640px\" />",
+        "storeOutMessages": false,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 660,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8950b4da2590404a",
+        "type": "set-shared-state",
+        "z": "306ab7cd96823849",
+        "state": "d2dda765572ce235",
+        "name": "imageUiState",
+        "triggerOnInit": true,
+        "triggerOnChange": true,
+        "provideOutput": true,
+        "outputs": 1,
+        "x": 400,
+        "y": 380,
+        "wires": [
+            [
+                "a332e5794a3eb08b"
+            ]
+        ]
+    },
+    {
+        "id": "0f16fa6b8c229588",
+        "type": "http request",
+        "z": "306ab7cd96823849",
+        "name": "To Telegram with Image",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.178.35:10008/telegram/image",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1530,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7848037624fa270c",
+        "type": "function",
+        "z": "306ab7cd96823849",
+        "name": "MapToTelegram",
+        "func": "msg.payload = {\n    \"image\": msg.payload.image,\n    \"msg\": `Trigger numBirds=${msg.payload.numBirds} score=${msg.payload.score}`\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1240,
+        "y": 880,
+        "wires": [
+            [
+                "0f16fa6b8c229588"
+            ]
+        ]
+    },
+    {
+        "id": "c55f0cbcfe8ebe9b",
+        "type": "join",
+        "z": "306ab7cd96823849",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": false,
+        "timeout": "",
+        "count": "1",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "num",
+        "reduceFixup": "",
+        "x": 470,
+        "y": 760,
+        "wires": [
+            [
+                "fbe324763e12e0b1"
+            ]
+        ]
+    },
+    {
+        "id": "fbe324763e12e0b1",
+        "type": "function",
+        "z": "306ab7cd96823849",
+        "name": "(>=1 bird, score>=0.8)",
+        "func": "var messages=msg.payload;\nvar avgBirds = msg.payload.map((x) => x.numBirds);\navgBirds = avgBirds.reduce((accumulator, currentValue) => accumulator + currentValue, 0);\navgBirds = avgBirds / msg.payload.length;\n\nvar avgScore = msg.payload.map((x) => x.score);\navgScore = avgScore.reduce((accumulator, currentValue) => accumulator + currentValue, 0);\navgScore = avgScore / msg.payload.length;\n\nvar ts = msg.payload.map((x) => x.ts);\nvar startTime = ts[0];\nvar endtime = ts[ts.length - 1];\nvar elapsed = (endtime - startTime);\n\nvar valid = avgBirds >= 1 && avgScore >= 0.8\nvar lastImage = msg.payload[ts.length - 1].image;\nmsg.payload = {\n    \"numBirds\": avgBirds,\n    \"score\": avgScore,\n    \"valid\": valid,\n    \"elapsed\": elapsed,\n    \"image\": lastImage\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 900,
+        "wires": [
+            [
+                "9d43641c6ab6e4b9",
+                "38302c178fa0575f"
+            ]
+        ]
+    },
+    {
+        "id": "4e6b3bc52802a8c0",
+        "type": "switch",
+        "z": "306ab7cd96823849",
+        "name": "Trigger/Shutoff",
+        "property": "payload.valid",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "true",
+                "vt": "jsonata"
+            },
+            {
+                "t": "eq",
+                "v": "false",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1000,
+        "y": 960,
+        "wires": [
+            [
+                "36174a7a862cde1d",
+                "7848037624fa270c",
+                "3e40cfcae592b0b1"
+            ],
+            [
+                "f7b0c47a26615f8e",
+                "5f46ae4bca1027de",
+                "17848e0ee0ed360c"
+            ]
+        ]
+    },
+    {
+        "id": "36174a7a862cde1d",
+        "type": "debug",
+        "z": "306ab7cd96823849",
+        "name": "Debug Trigger",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1240,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "f7b0c47a26615f8e",
+        "type": "debug",
+        "z": "306ab7cd96823849",
+        "name": "Debug Turn Off",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1200,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "c0e42398fd0c73b8",
+        "type": "ui_switch",
+        "z": "306ab7cd96823849",
+        "name": "Trigger On/Off",
+        "label": "Trigger On/Off",
+        "tooltip": "",
+        "group": "6f550ebfd688d4ad",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 1220,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9d43641c6ab6e4b9",
+        "type": "change",
+        "z": "306ab7cd96823849",
+        "name": "Use Valid",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.valid",
+                "tot": "msg",
+                "dc": true
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 940,
+        "y": 780,
+        "wires": [
+            [
+                "c0e42398fd0c73b8"
+            ]
+        ]
+    },
+    {
+        "id": "5f46ae4bca1027de",
+        "type": "function",
+        "z": "306ab7cd96823849",
+        "name": "MapToTelegramOff",
+        "func": "msg.payload = {\n    \"msg\": `Trigger Off score=${msg.payload.score} numBirds=${msg.payload.numBirds}`\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1230,
+        "y": 1180,
+        "wires": [
+            [
+                "122049cef755190f"
+            ]
+        ]
+    },
+    {
+        "id": "122049cef755190f",
+        "type": "http request",
+        "z": "306ab7cd96823849",
+        "name": "Message To Telegram",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "query",
+        "url": "http://192.168.178.35:10008/telegram/message",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1520,
+        "y": 1180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "38302c178fa0575f",
+        "type": "rbe",
+        "z": "306ab7cd96823849",
+        "name": "Block unless Changes",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload.valid",
+        "topi": "topic",
+        "x": 780,
+        "y": 980,
+        "wires": [
+            [
+                "4e6b3bc52802a8c0"
+            ]
+        ]
+    },
+    {
+        "id": "973dd0243c84215f",
+        "type": "mqtt out",
+        "z": "306ab7cd96823849",
+        "name": "To HomeAssistant",
+        "topic": "PigionAttackTrigger",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "27781ac9b5bb1346",
+        "x": 1470,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "17848e0ee0ed360c",
+        "type": "change",
+        "z": "306ab7cd96823849",
+        "name": "Set Off",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "off",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1240,
+        "y": 1100,
+        "wires": [
+            [
+                "973dd0243c84215f"
+            ]
+        ]
+    },
+    {
+        "id": "b0e69f4e8c9b6f6d",
+        "type": "mqtt in",
+        "z": "306ab7cd96823849",
+        "name": "",
+        "topic": "PigionAttackTrigger",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "27781ac9b5bb1346",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 330,
+        "y": 1300,
+        "wires": [
+            [
+                "21538f5d43f7cbbc"
+            ]
+        ]
+    },
+    {
+        "id": "21538f5d43f7cbbc",
+        "type": "debug",
+        "z": "306ab7cd96823849",
+        "name": "Debug Home Assistant Trigger",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 970,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "3e40cfcae592b0b1",
+        "type": "trigger",
+        "z": "306ab7cd96823849",
+        "name": "",
+        "op1": "on",
+        "op2": "off",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "2",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 1200,
+        "y": 960,
+        "wires": [
+            [
+                "973dd0243c84215f"
+            ]
+        ]
+    },
+    {
+        "id": "27781ac9b5bb1346",
+        "type": "mqtt-broker",
+        "name": "TOWER MQTT",
+        "broker": "192.168.178.35",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "6f550ebfd688d4ad",
+        "type": "ui_group",
+        "name": "Pigion",
+        "tab": "a24c09fce80d14ce",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "cbbe51aeaee46217",
+        "type": "ui_group",
+        "name": "Image Input",
+        "tab": "a24c09fce80d14ce",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "d2dda765572ce235",
+        "type": "shared-state",
+        "name": "imageUiState",
+        "lbl": "",
+        "tags": "",
+        "historyCount": 2,
+        "dataType": "str",
+        "boolType": "bool",
+        "boolStrTrue": "",
+        "boolStrFalse": "",
+        "precision": "",
+        "numMin": "",
+        "numMax": "",
+        "unit": "",
+        "saveInterval": "0"
+    },
+    {
+        "id": "a24c09fce80d14ce",
+        "type": "ui_tab",
+        "name": "Pigion",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]
