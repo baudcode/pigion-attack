@@ -1,0 +1,9 @@
+FROM python:3.12-alpine
+
+WORKDIR /app
+RUN pip install --upgrade pip
+RUN pip install requests pillow fastapi uvicorn python-multipart
+ADD telegram_server.py telegram_server.py
+ADD .env .env
+
+CMD ["uvicorn",  "--host=0.0.0.0", "telegram_server:app"]
