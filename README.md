@@ -63,6 +63,7 @@ docker run -itd --rm -p 10008:8000 localhost:5000/pigion/telegram-server:latest
 
 ### 4. Setup Node-RED automation using MQTT Events
 
+Flow: [Json](flows.json)
 |Topic| Description|
 | --- | ---        |
 | PigionImage   | Image send from Raspberry Pi|
@@ -70,3 +71,4 @@ docker run -itd --rm -p 10008:8000 localhost:5000/pigion/telegram-server:latest
 | PigionAttackTrigger | on -> water gun active \ off -> water gun off |
 
 ![NodeRed](node-red.jpg)
+
