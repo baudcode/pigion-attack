@@ -72,3 +72,9 @@ Flow: [Json](flows.json)
 
 ![NodeRed](node-red.jpg)
 
+### 5. Setup home assistant trigger
+
+Include MQTT Broker and attach PigionAttackTrigger 'on' to trigger shellyplus switch to turn on the water pump.
+
+![Turn On](mqtt_broker_on.png)
+![Turn On](mqtt_broker_off.png)
