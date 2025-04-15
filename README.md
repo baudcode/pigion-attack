@@ -1,4 +1,4 @@
-# Pigion Detector thats connected to Node Red
+# Pigion Detector thats connected to Node Red to attach pigions with water spray
 
 This respository contains the code for a home automation to detect pigions on my balcony using a camera attached to a raspberry pi and then to trigger a water pump which will spray water on the pigions to scare them away.
 
